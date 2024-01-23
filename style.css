@@ -3,9 +3,10 @@ html, body {
   padding: 0;
 }
 canvas {
-  display: block;
-  margin-top: -25%;
-  margin-left: 10%;
+  
+  border: 3px solid white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px white;
 }
 video{
   margin-left:20%;

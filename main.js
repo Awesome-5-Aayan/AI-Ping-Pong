@@ -20,6 +20,15 @@ var ball = {
     dx:3,
     dy:3
 }
+rightWristY=0;
+rightWristX=0;
+scoreRightWrist=0;
+game_status="";
+
+function preload(){
+  ball_touch_paddle=loadSound("ball_touch_paddel.wav");
+  missed=loadSound("missed.wav");
+}
 
 function setup(){
   var canvas =  createCanvas(700,600);
@@ -39,6 +48,8 @@ if (results.length>0) {
 	console.log(results);
 	rightWristX=results[0].pose.rightWrist.x;
 	rightWristY=results[0].pose.rightWrist.y;
+  scoreRightWrist=results[0].pose.keypoints[10].score;
+  console.log(scoreRightWrist);
 }
 }
 
@@ -57,6 +68,11 @@ if (game_status=="start") {
  stroke("black");
  rect(0,0,20,700);
  
+ if(scoreRightWrist>0.002){
+  fill("red");
+  stroke("red");
+  circle(rightWristX, rightWristY, 30);
+ }
    //funtion paddleInCanvas call 
    paddleInCanvas();
  
@@ -64,7 +80,7 @@ if (game_status=="start") {
    fill(250,0,0);
     stroke(0,0,250);
     strokeWeight(0.5);
-   paddle1Y = mouseY; 
+   paddle1Y = rightWristY; 
    rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
    
    
@@ -187,4 +203,10 @@ function startGame(){
   game_status="start";
   document.getElementById("status").innerHTML="game is loading";
 
+}
+
+function restart(){
+  loop();
+  pcscore=0;
+  playerscore=0;
 }
